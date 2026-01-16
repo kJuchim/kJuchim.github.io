@@ -1,6 +1,10 @@
 {
     "rewrites": [
         {
+            "source": "/api/l_pozycjaplanu1.php",
+            "destination": "/api/plan"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }
