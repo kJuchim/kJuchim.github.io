@@ -2,10 +2,8 @@ export default async function handler(request, response) {
     try {
         // Construct target URL with query parameters
         const { search } = new URL(request.url, `http://${request.headers.host}`);
-        const targetUrl = `https://plan.ue.wroc.pl/plan${search}`;
-
-        // Check if it's actually l_pozycjaplanu1.php based on common patterns if 'plan' fails?
-        // But local uses /plan, so we stick to /plan. 
+        // FIX: The actual endpoint on the university server is l_pozycjaplanu1.php, NOT /plan
+        const targetUrl = `https://plan.ue.wroc.pl/l_pozycjaplanu1.php${search}`;
 
         const apiRes = await fetch(targetUrl, {
             headers: {
@@ -18,6 +16,7 @@ export default async function handler(request, response) {
 
         response.status(apiRes.status).send(data);
     } catch (error) {
+        console.error(error);
         response.status(500).json({ error: 'Failed to fetch plan' });
     }
 }
